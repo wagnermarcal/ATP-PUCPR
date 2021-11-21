@@ -5,12 +5,11 @@ public abstract class Livro {
     private String resenha;
     protected String generoLivro;
 
-
-    public Livro() {
-        this.nome = Controle.leString();
-        this.isbn = Controle.leString();
-        this.autor = Controle.leString();
-        this.resenha = Controle.leString();
+    public Livro(String nome, String isbn, String autor, String resenha) {
+        this.nome = nome;
+        this.isbn = isbn;
+        this.autor = autor;
+        this.resenha = resenha;
     }
 
     @Override
