@@ -11,4 +11,11 @@ public class LivroInfantil extends Livro {
     public String generoDoLivro() {
         return "Infantil";
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "brinde='" + brinde + '\'' +
+                '}';
+    }
 }

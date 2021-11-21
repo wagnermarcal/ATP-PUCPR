@@ -11,4 +11,11 @@ public class LivroViagem extends Livro {
     public String generoDoLivro() {
         return "Viagem";
     }
+
+    @Override
+    public String toString() {
+        return "LivroViagem{" +
+                "local='" + local + '\'' +
+                '}';
+    }
 }

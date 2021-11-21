@@ -12,4 +12,10 @@ public class LivroCulinaria extends Livro {
         return "Culinária";
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                "tipoDeReceita='" + tipoDeReceita + '\'' +
+                '}';
+    }
 }
