@@ -17,10 +17,23 @@ public class Main {
             switch (entradaUsuario) {
                 case 1:
                     addLivroInfantil(biblioteca);
+                    break;
                 case 2:
                     addLivroCulinario(biblioteca);
+                    break;
+                case 3:
+                    addLivroViagem(biblioteca);
+                    break;
+                case 4:
+                    for (Livro l: biblioteca) {
+                        System.out.println(biblioteca.get(biblioteca.indexOf(l)));
+                    }
+                    break;
             }
+
         }
+
+
 
 //        Livro livro1 = new LivroInfantil("Pequeno Príncipe","254785", "Fulano", "Um livro infantil!", "Brinquedo");
 //        Livro livro2 = new LivroCulinaria("Receitas - Parte 1","125445", "Sei lá", "Receitas!", "Doce");
@@ -30,6 +43,22 @@ public class Main {
 //        biblioteca.add(livro3);
 //        for (Livro l: biblioteca) {
 
+    }
+
+    private static void addLivroInfantil(List<Livro> biblioteca) {
+        System.out.println("Nome do livro: ");
+        String nome = Controle.leString();
+        System.out.println("ISBN: ");
+        String isbn = Controle.leString();
+        System.out.println("Autor: ");
+        String autor = Controle.leString();
+        System.out.println("Resenha: ");
+        String resenha = Controle.leString();
+        System.out.println("Brinde: ");
+        String caracteristica = Controle.leString();
+        Livro livro = new LivroInfantil(nome, isbn, autor, resenha, caracteristica);
+        biblioteca.add(livro);
+        System.out.println(biblioteca.get(biblioteca.indexOf(livro)));
     }
 
     private static void addLivroCulinario(List<Livro> biblioteca) {
@@ -48,7 +77,7 @@ public class Main {
         System.out.println(biblioteca.get(biblioteca.indexOf(livro)));
     }
 
-    private static void addLivroInfantil(List<Livro> biblioteca) {
+    private static void addLivroViagem(List<Livro> biblioteca) {
         System.out.println("Nome do livro: ");
         String nome = Controle.leString();
         System.out.println("ISBN: ");
@@ -59,7 +88,7 @@ public class Main {
         String resenha = Controle.leString();
         System.out.println("Brinde: ");
         String caracteristica = Controle.leString();
-        Livro livro = new LivroInfantil(nome, isbn, autor, resenha, caracteristica);
+        Livro livro = new LivroViagem(nome, isbn, autor, resenha, caracteristica);
         biblioteca.add(livro);
         System.out.println(biblioteca.get(biblioteca.indexOf(livro)));
     }
