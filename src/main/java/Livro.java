@@ -1,4 +1,6 @@
-public abstract class Livro {
+import java.io.Serializable;
+
+public abstract class Livro implements Serializable {
     private String nome;
     private String isbn;
     private String autor;
