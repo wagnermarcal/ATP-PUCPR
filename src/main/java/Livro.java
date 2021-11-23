@@ -16,7 +16,7 @@ public abstract class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro" +
+        return  "\n----------------------------------------" +
                 "\nNome: " + nome +
                 "\nISBN: " + isbn +
                 "\nAutor: " + autor +

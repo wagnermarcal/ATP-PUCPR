@@ -15,6 +15,7 @@ public class LivroInfantil extends Livro {
     @Override
     public String toString() {
         return super.toString() +
-                "Brinde: " + brinde;
+                "\nBrinde: " + brinde +
+                "\n----------------------------------------";
     }
 }

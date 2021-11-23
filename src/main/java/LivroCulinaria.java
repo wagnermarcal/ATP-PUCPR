@@ -15,6 +15,7 @@ public class LivroCulinaria extends Livro {
     @Override
     public String toString() {
         return super.toString() +
-                "\nTipo de receita: '" + tipoDeReceita;
+                "\nTipo de receita: '" + tipoDeReceita +
+                "\n----------------------------------------";
     }
 }
