@@ -46,24 +46,32 @@ public class Main {
                     biblioteca.clear();
                     break;
                 case 4:
-                    try {
-                        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("arq1.txt"));
-                        for (int i = 0; i < biblioteca.size(); i++) {
-                            outputStream.writeObject(biblioteca.get(i));
-                        }
-
-                        outputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    gravarDados(biblioteca);
                     break;
                 case 5:
-                    recuperaDados();
-
+                    biblioteca = recuperaDados();
+                    break;
+                case 9:
+                    isEnd = false;
+                    break;
             }
         }
     }
 
+    private static void gravarDados(List<Livro> biblioteca) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("arq1.txt"));
+            for (int i = 0; i < biblioteca.size(); i++) {
+                outputStream.writeObject(biblioteca.get(i));
+            }
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+
+    @SuppressWarnings("finally")
     public static ArrayList<Livro> recuperaDados() {
         ArrayList<Livro> livroCache = new ArrayList<Livro>();
         ObjectInputStream inputStream = null;
@@ -85,7 +93,6 @@ public class Main {
             }
             return livroCache;
         }
-
     }
 
     private static void addLivroInfantil(List<Livro> biblioteca) {
@@ -132,5 +139,4 @@ public class Main {
         Livro livro = new LivroViagem(nome, isbn, autor, resenha, caracteristica);
         biblioteca.add(livro);
     }
-
 }

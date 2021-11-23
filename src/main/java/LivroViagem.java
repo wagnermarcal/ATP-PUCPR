@@ -15,7 +15,6 @@ public class LivroViagem extends Livro {
     @Override
     public String toString() {
         return super.toString() +
-                "local='" + local + '\'' +
-                '}';
+                "Local: " + local;
     }
 }

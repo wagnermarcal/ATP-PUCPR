@@ -16,13 +16,12 @@ public abstract class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" +
-                "nome='" + nome + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", autor='" + autor + '\'' +
-                ", resenha='" + resenha + '\'' +
-                ", generoLivro='" + generoLivro + '\'' +
-                '}';
+        return "Livro" +
+                "\nNome: " + nome +
+                "\nISBN: " + isbn +
+                "\nAutor: " + autor +
+                "\nResenha: " + resenha +
+                "\nGênero do Livro: " + generoLivro;
     }
 
     public abstract String generoDoLivro();
