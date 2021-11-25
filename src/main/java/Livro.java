@@ -1,10 +1,10 @@
 import java.io.Serializable;
 
 public abstract class Livro implements Serializable {
-    private String nome;
-    private String isbn;
-    private String autor;
-    private String resenha;
+    private final String nome;
+    private final String isbn;
+    private final String autor;
+    private final String resenha;
     protected String generoLivro;
 
     public Livro(String nome, String isbn, String autor, String resenha) {
@@ -16,12 +16,12 @@ public abstract class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return  "\n----------------------------------------" +
+        return "\n----------------------------------------" +
+                "\nGênero do Livro: " + generoLivro +
                 "\nNome: " + nome +
                 "\nISBN: " + isbn +
                 "\nAutor: " + autor +
-                "\nResenha: " + resenha +
-                "\nGênero do Livro: " + generoLivro;
+                "\nResenha: " + resenha;
     }
 
     public abstract String generoDoLivro();

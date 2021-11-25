@@ -1,36 +1,46 @@
-import com.sun.security.jgss.GSSUtil;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        menuBiblioteca();
+    }
+
+    private static void menuBiblioteca() {
         List<Livro> biblioteca = new ArrayList<>();
         boolean isEnd = true;
         while (isEnd) {
-            System.out.println("1. Adicionar livro");
-            System.out.println("2. Exibir livros");
-            System.out.println("3. Excluir livros");
-            System.out.println("4. Gravar");
-            System.out.println("5. Recuperar");
-            System.out.println("9. Fim");
-            int opcaoUsuario = Controle.leInteiro();
-            Controle.leString();
-            switch (opcaoUsuario) {
+            String opcoesMenu;
+            String entradaUsuario;
+            int opcaoMenuPrincipal;
+            int opcaoMenuControle;
+            opcoesMenu = "Menu\n" +
+                    "1. Adicionar livro\n" +
+                    "2. Exibir livros\n" +
+                    "3. Excluir livros\n" +
+                    "4. Gravar\n" +
+                    "5. Recuperar\n" +
+                    "9. Fim";
+            entradaUsuario = JOptionPane.showInputDialog(opcoesMenu);
+            opcaoMenuPrincipal = Controle.retornaInteiro(entradaUsuario);
+            switch (opcaoMenuPrincipal) {
                 case 1:
-                    System.out.println("1. Livro Infantil");
-                    System.out.println("2. Livro CulinÃ¡rio");
-                    System.out.println("3. Livro de Viagens");
-                    int entradaUsuario = Controle.leInteiro();
-                    Controle.leString();
-                    switch (entradaUsuario) {
+                    String opcoesLivros = "Selecione o tipo do livro que deseja adicionar\n" +
+                            "1. Livro Infantil\n" +
+                            "2. Livro Culinário\n" +
+                            "3. Livro de Viagens";
+                    entradaUsuario = JOptionPane.showInputDialog(opcoesLivros);
+                    opcaoMenuControle = Controle.retornaInteiro(entradaUsuario);
+                    switch (opcaoMenuControle) {
                         case 1:
                             addLivroInfantil(biblioteca);
                             break;
                         case 2:
-                            addLivroCulinario(biblioteca);
+                            addLivroCulinaria(biblioteca);
                             break;
                         case 3:
                             addLivroViagem(biblioteca);
@@ -38,21 +48,41 @@ public class Main {
                     }
                     break;
                 case 2:
-                    for (Livro l : biblioteca) {
-                        System.out.println(biblioteca.get(biblioteca.indexOf(l)));
+                    if (!biblioteca.isEmpty()) {
+                        for (Livro l : biblioteca) {
+                            Livro listaDosLivros = (biblioteca.get(biblioteca.indexOf(l)));
+                            JOptionPane.showMessageDialog(null, listaDosLivros);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Você ainda não cadastrou nenhum item!\n" +
+                                "Tente adicioná-los ou recuperá-los");
                     }
                     break;
                 case 3:
-                    biblioteca.clear();
+                    if (!biblioteca.isEmpty()) {
+                        biblioteca.clear();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há dados para serem limpos!");
+                    }
                     break;
                 case 4:
-                    gravarDados(biblioteca);
+                    if (!biblioteca.isEmpty()) {
+                        gravarDados(biblioteca);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há dados para serem gravados!");
+                    }
                     break;
                 case 5:
-                    biblioteca = recuperaDados();
+                    if (biblioteca.isEmpty()) {
+                        biblioteca = recuperaDados();
+                        JOptionPane.showMessageDialog(null, "Dados recuperados com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há dados para serem recuperados!");
+                    }
                     break;
                 case 9:
                     isEnd = false;
+                    JOptionPane.showMessageDialog(null, "Fim do programa!");
                     break;
             }
         }
@@ -61,23 +91,22 @@ public class Main {
     private static void gravarDados(List<Livro> biblioteca) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("arq1.txt"));
-            for (int i = 0; i < biblioteca.size(); i++) {
-                outputStream.writeObject(biblioteca.get(i));
+            for (Livro livro : biblioteca) {
+                outputStream.writeObject(livro);
             }
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return;
     }
 
     @SuppressWarnings("finally")
     public static ArrayList<Livro> recuperaDados() {
-        ArrayList<Livro> livroCache = new ArrayList<Livro>();
+        ArrayList<Livro> livroCache = new ArrayList<>();
         ObjectInputStream inputStream = null;
         try {
             inputStream = new ObjectInputStream(new FileInputStream("arq1.txt"));
-            Object o = null;
+            Object o;
             while ((o = inputStream.readObject()) != null) {
                 if (o instanceof Livro) {
                     livroCache.add((Livro) o);
@@ -96,47 +125,65 @@ public class Main {
     }
 
     private static void addLivroInfantil(List<Livro> biblioteca) {
-        System.out.println("Nome do livro: ");
-        String nome = Controle.leString();
-        System.out.println("ISBN: ");
-        String isbn = Controle.leString();
-        System.out.println("Autor: ");
-        String autor = Controle.leString();
-        System.out.println("Resenha: ");
-        String resenha = Controle.leString();
-        System.out.println("Brinde: ");
-        String caracteristica = Controle.leString();
-        Livro livro = new LivroInfantil(nome, isbn, autor, resenha, caracteristica);
-        biblioteca.add(livro);
+        String inputNomeLivro = "Cadastro do Livro\n" + "Nome do livro:\n";
+        String nome = JOptionPane.showInputDialog(inputNomeLivro);
+
+        String inputIsbnLivro = "Cadastro do Livro\n" + "ISBN:\n";
+        String isbn = JOptionPane.showInputDialog(inputIsbnLivro);
+
+        String inputAutorLivro = "Cadastro do Livro\n" + "Autor:\n";
+        String autor = JOptionPane.showInputDialog(inputAutorLivro);
+
+        String inputResenhaLivro = "Cadastro do Livro\n" + "Resenha:\n";
+        String resenha = JOptionPane.showInputDialog(inputResenhaLivro);
+
+        String inputBrinde = "Cadastro do Livro\n" + "Brinde:\n";
+        String brinde = JOptionPane.showInputDialog(inputBrinde);
+
+        Livro livroInfantil = new LivroInfantil(nome, isbn, autor, resenha, brinde);
+
+        biblioteca.add(livroInfantil);
     }
 
-    private static void addLivroCulinario(List<Livro> biblioteca) {
-        System.out.println("Nome do livro: ");
-        String nome = Controle.leString();
-        System.out.println("ISBN: ");
-        String isbn = Controle.leString();
-        System.out.println("Autor: ");
-        String autor = Controle.leString();
-        System.out.println("Resenha: ");
-        String resenha = Controle.leString();
-        System.out.println("Tipo de receita: ");
-        String caracteristica = Controle.leString();
-        Livro livro = new LivroCulinaria(nome, isbn, autor, resenha, caracteristica);
-        biblioteca.add(livro);
+    private static void addLivroCulinaria(List<Livro> biblioteca) {
+        String inputNomeLivro = "Cadastro do Livro\n" + "Nome do livro:\n";
+        String nome = JOptionPane.showInputDialog(inputNomeLivro);
+
+        String inputIsbnLivro = "Cadastro do Livro\n" + "ISBN:\n";
+        String isbn = JOptionPane.showInputDialog(inputIsbnLivro);
+
+        String inputAutorLivro = "Cadastro do Livro\n" + "Autor:\n";
+        String autor = JOptionPane.showInputDialog(inputAutorLivro);
+
+        String inputResenhaLivro = "Cadastro do Livro\n" + "Resenha:\n";
+        String resenha = JOptionPane.showInputDialog(inputResenhaLivro);
+
+        String inputTipoReceita = "Cadastro do Livro\n" + "Tipo de receita:\n";
+        String tipo = JOptionPane.showInputDialog(inputTipoReceita);
+
+        Livro livroCulinaria = new LivroCulinario(nome, isbn, autor, resenha, tipo);
+
+        biblioteca.add(livroCulinaria);
     }
 
     private static void addLivroViagem(List<Livro> biblioteca) {
-        System.out.println("Nome do livro: ");
-        String nome = Controle.leString();
-        System.out.println("ISBN: ");
-        String isbn = Controle.leString();
-        System.out.println("Autor: ");
-        String autor = Controle.leString();
-        System.out.println("Resenha: ");
-        String resenha = Controle.leString();
-        System.out.println("Local: ");
-        String caracteristica = Controle.leString();
-        Livro livro = new LivroViagem(nome, isbn, autor, resenha, caracteristica);
-        biblioteca.add(livro);
+        String inputNomeLivro = "Cadastro do Livro\n" + "Nome do livro:\n";
+        String nome = JOptionPane.showInputDialog(inputNomeLivro);
+
+        String inputIsbnLivro = "Cadastro do Livro\n" + "ISBN:\n";
+        String isbn = JOptionPane.showInputDialog(inputIsbnLivro);
+
+        String inputAutorLivro = "Cadastro do Livro\n" + "Autor:\n";
+        String autor = JOptionPane.showInputDialog(inputAutorLivro);
+
+        String inputResenhaLivro = "Cadastro do Livro\n" + "Resenha:\n";
+        String resenha = JOptionPane.showInputDialog(inputResenhaLivro);
+
+        String inputLocal = "Cadastro do Livro\n" + "Local:\n";
+        String local = JOptionPane.showInputDialog(inputLocal);
+
+        Livro livroViagem = new LivroViagem(nome, isbn, autor, resenha, local);
+
+        biblioteca.add(livroViagem);
     }
 }

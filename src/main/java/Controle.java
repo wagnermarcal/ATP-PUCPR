@@ -1,13 +1,19 @@
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Controle {
-    public static final Scanner scan = new Scanner(System.in);
-
-    public static String leString(){
-        return scan.nextLine();
+    private static boolean verificaIntEntrada(String intString) {
+        try {
+            Integer.parseInt(intString);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
-    public static int leInteiro(){
-        return scan.nextInt();
+    public static int retornaInteiro(String input) {
+        while (!verificaIntEntrada(input)) {
+            input = JOptionPane.showInputDialog(null, "Valor incorreto!\n\nDigite um número inteiro.");
+        }
+        return Integer.parseInt(input);
     }
 }

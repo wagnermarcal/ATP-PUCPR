@@ -7,6 +7,10 @@ public class LivroViagem extends Livro {
         this.local = local;
     }
 
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
     @Override
     public String generoDoLivro() {
         return "Viagem";

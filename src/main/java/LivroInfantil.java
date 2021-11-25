@@ -7,6 +7,10 @@ public class LivroInfantil extends Livro {
         this.brinde = brinde;
     }
 
+    public void setBrinde(String brinde) {
+        this.brinde = brinde;
+    }
+
     @Override
     public String generoDoLivro() {
         return "Infantil";
